@@ -267,10 +267,10 @@ async function saveWorkout(body, userInstance, vWID, submit=false) {
     console.log("\n\n copied Level Up 2: \n\n", copiedStats["Level Up"]);
     
     userInstance.stats = copiedStats;
-    await axios.put(`/api/users/${userInstance.id}/stats`, copiedStats,
-    { proxy: { host: '127.0.0.1', port: 3000 } });
-    await axios.put(`/api/users/${userInstance.id}/workouts`, allWorkouts,
-    { proxy: { host: '127.0.0.1', port: 3000 } });
+    await axios.put(process.env.BASE_URL + `api/users/${userInstance.id}/stats`, copiedStats);
+    await axios.put(process.env.BASE_URL + `api/users/${userInstance.id}/workouts`, allWorkouts);
+    // await axios.put(`/api/users/${userInstance.id}/workouts`, allWorkouts,
+    // { proxy: { host: '127.0.0.1', port: 3000 } });
     // await userInstance.save();
 
     // console.log("WH 312 Patterns \n");

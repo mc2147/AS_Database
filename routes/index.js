@@ -488,6 +488,7 @@ router.post('/' + postURL, async (req, res) => {
 	}
 	
 	if (req.body.SubmitBtn) {
+		console.log("submitURL: ", WorkoutURL);
 		var axiosPutResponse = await axios.put(WorkoutURL + "/submit", putBody);
 		if (axiosPutResponse.data.lastWorkout) {
 			res.redirect('/level-up');
