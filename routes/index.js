@@ -289,26 +289,18 @@ router.get('/',
 		}).then(users => {
 			// console.log("ALL USERS: ", users);
 		})
-		// axios.get(baseUrl + `/api/user/logged-in`, 
-		// { proxy: { host: baseUrl || '127.0.0.1', port: 3000 } })
-		axios.get("/api/user/logged-in")
-		.then(res => res.data)
-		.then(user => {
-				console.log("AXIOS.GET LINE 297: ", user);
-				if (!user) {
-					req.session.username = "UserName5";
-				}
-				else {
-					req.session.username = user.username;
-				}
-			} 
-		);
-		
 	}
-	console.log("LINE 308 (AFTER AXIOS)");
 	req.session.User = await User.findOne({where: {username: req.session.username}});
 	req.session.userId = req.session.User.id;
-	// console.log("390", req.session)c
+	console.log("LINE 295 (BEFORE AXIOS)");
+	axios.get("/api/users/" + req.session.userId)
+	.then(res => res.data)
+	.then(user => {
+			console.log("FINDING CURRENT USER: ", user);
+		} 
+	);
+	console.log("LINE 304 (AFTER AXIOS)");
+// console.log("390", req.session)c
 		// (req.session.userId);
 	// req.session.User = await User.findById(req.session.userId);
 	// thisUser = req.session.User;
