@@ -278,8 +278,10 @@ router.get('/',
 	// req.session.userId -> find user -> get information as req.session.user
 	// req.session.userId = 1;
 	// req.session.userId = thisUserID;
+	console.log("req.session: ", req.session);
 	if (!req.session.username) {
 		req.session.username = thisUserName;
+		console.log("line 284 getting hit: ", thisUserName);
 		axios.get(`http://localhost:3000/api/user/logged-in`, { proxy: { host: '127.0.0.1', port: 3000 } })
 		.then(res => res.data)
 		.then(user => {
