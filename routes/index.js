@@ -294,7 +294,7 @@ router.get('/',
 		axios.get("/api/user/logged-in")
 		.then(res => res.data)
 		.then(user => {
-				console.log("AXIOS.GET LINE 297");
+				console.log("AXIOS.GET LINE 297: ", user);
 				if (!user) {
 					req.session.username = "UserName5";
 				}
@@ -305,7 +305,7 @@ router.get('/',
 		);
 		
 	}
-	console.log("LINE 308 (AXIOS WORKED)");
+	console.log("LINE 308 (AFTER AXIOS)");
 	req.session.User = await User.findOne({where: {username: req.session.username}});
 	req.session.userId = req.session.User.id;
 	// console.log("390", req.session)c
@@ -345,10 +345,10 @@ router.get('/',
 	
 
 	var thisworkoutDate = req.session.User.workouts[TemplateID].Date;
-	var test = await axios.get('/api/users'
-		,{ proxy: { host: '127.0.0.1', port: 3000 }}
-	);
-	console.log("432 test");
+	// var test = await axios.get('/api/users'
+	// 	,{ proxy: { host: '127.0.0.1', port: 3000 }}
+	// );
+	// console.log("432 test");
 
 	//Change to req.session later
 	if (
