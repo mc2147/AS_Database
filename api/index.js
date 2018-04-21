@@ -19,7 +19,7 @@ var data = require('../data');
 
 // var WorkoutGenerator = require('../data/WorkoutGenerator');
 // console.log("API FILE 9");
-
+// var baseURL = process.env.PORT ? 
 
 var workoutTemplates = {};
 workoutTemplates[1] = data.Workouts1;
@@ -60,6 +60,7 @@ router.post("/test-route", function (req, res) {
 })
 
 router.post("/user/login", async function(req, res) {
+    console.log("LOGIN POST");
     var username = req.body.username;
     var passwordInput = req.body.password;
     var axiosPost = await axios.post(`/api/users/${username}/login`, req.body,

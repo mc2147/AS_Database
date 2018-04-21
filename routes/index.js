@@ -52,12 +52,13 @@ var UserLevel = 1
 var postURL = "postWorkout";
 var getURL = "getWorkout";
 
-let baseUrl = process.env.baseURL || "http://localhost:3000";
+var herokuURL = "https://obscure-citadel-34419.herokuapp.com/";
+var localURL = "http://localhost:3000/"
+var baseURL = process.env.PORT ? herokuURL : localURL;
 
-console.log("what is BASE_URL: ", process.env.BASE_URL);
+console.log("what is baseURL: ", baseURL);
+console.log("what is process.env.BASE_URL: ", process.env.BASE_URL)
 
-// console.log("process.env: ", process.env);
-// console.log("BASE URL:::", process.env.baseURL);
 
 var levelGroupsDict = {
 	// Add Week and Day list here too
@@ -277,9 +278,6 @@ router.post('/get-next-workouts',
 
 var G_vueOutput = {};
 
-var herokuURL = "https://obscure-citadel-34419.herokuapp.com/";
-var localURL = "http://localhost:3001/"
-
 router.get('/', 
 	async(req, res, next) => {	
 	// req.session.userId -> find user -> get information as req.session.user
@@ -303,7 +301,7 @@ router.get('/',
 	// 	method:'get',
 	// 	url: herokuURL + "/api/users",
 	// })
-	var thisUserURL = localURL + "api/users/" + req.session.userId;
+	var thisUserURL = process.env.BASE_URL + "api/users/" + req.session.userId;
 	console.log("thisUserURL", thisUserURL);
 	axios.get(thisUserURL)
 	.then(res => res.data)
@@ -311,7 +309,7 @@ router.get('/',
 			console.log("FINDING CURRENT USER: ", user);
 		} 
 	);
-	var loginTestURL = herokuURL + "api/users/" + req.session.username + "/login";
+	var loginTestURL = process.env.BASE_URL + "api/users/" + req.session.username + "/login";
 	axios.post(loginTestURL, {
 		username: req.session.username,
 		password: "Password5",
@@ -478,16 +476,16 @@ router.post('/' + postURL, async (req, res) => {
 	putBody = req.body;
 	// putBody.viewingWID = _WID;
 	// console.log("567", axiosPutResponse.data);
-	var WorkoutURL = `/api/users/${_User.id}/workouts/${_WID}`;
+	var WorkoutURL = process.env.BASE_URL + `api/users/${_User.id}/workouts/${_WID}`;
+	
 	if (req.body.SaveBtn) {
-		var axiosPutResponse = await axios.put(WorkoutURL + "/save", putBody,
-		{ proxy: { host: '127.0.0.1', port: 3000 } });
+		var axiosPutResponse = await axios.put(WorkoutURL + "/save", putBody);
 		res.redirect('/');
 		return;
 	}
+	
 	if (req.body.SubmitBtn) {
-		var axiosPutResponse = await axios.put(WorkoutURL + "/submit", putBody,
-		{ proxy: { host: '127.0.0.1', port: 3000 } });
+		var axiosPutResponse = await axios.put(WorkoutURL + "/submit", putBody);
 		if (axiosPutResponse.data.lastWorkout) {
 			res.redirect('/level-up');
 			return		
@@ -588,7 +586,7 @@ router.post('/' + postURL, async (req, res) => {
 });
 
 router.get('/level-up', async function(req, res) {
-	var _UserData = await axios.get(`/api/users/${req.session.User.id}`, { proxy: { host: '127.0.0.1', port: 3000 } });
+	var _UserData = await axios.get(env.process.BASE_URL + `api/users/${req.session.User.id}`);
 	var _User = _UserData.data;
 	var newLevel = _User.level;
 	var oldLevel = (_User.stats["Level Up"].Status.value == 1) ? newLevel - 1 : newLevel;

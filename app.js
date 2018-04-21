@@ -1,3 +1,9 @@
+var herokuURL = "https://obscure-citadel-34419.herokuapp.com/";
+var localURL = "http://localhost:3000/";
+
+process.env.BASE_URL = (process.env.PORT) ? herokuURL : localURL;
+console.log("process.env.BASE_URL SET: ", process.env.BASE_URL);
+
 const path = require('path');
 var api = require('./api');
 var models = require('./models');
@@ -14,8 +20,6 @@ var models = require('./models');
     
     var loadData = require('./data');
    
-    process.env.BASE_URL = "https://obscure-citadel-34419.herokuapp.com/";
-    console.log("base url test: ", process.env.BASE_URL);
     // app.get('/', (req, res) => res.send('New Alloy Strength'))
     
     app.use(bodyParser.json()); // would be for AJAX requests
