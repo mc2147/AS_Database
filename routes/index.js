@@ -55,6 +55,7 @@ var getURL = "getWorkout";
 let baseUrl = process.env.baseURL || "http://localhost:3000";
 
 console.log("process.env: ", process.env);
+console.log("BASE URL:::", process.env.baseURL);
 
 var levelGroupsDict = {
 	// Add Week and Day list here too
