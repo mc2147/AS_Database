@@ -283,6 +283,9 @@ router.get('/',
 	// req.session.userId -> find user -> get information as req.session.user
 	// req.session.userId = 1;
 	// req.session.userId = thisUserID;
+	console.log("process.env.baseurl: ", process.env.BASE_URL);
+	console.log("process.env.port: ", process.env.PORT);
+
 	console.log("req.session: ", req.session);
 	if (!req.session.username) {
 		req.session.username = thisUserName;
@@ -586,7 +589,7 @@ router.post('/' + postURL, async (req, res) => {
 });
 
 router.get('/level-up', async function(req, res) {
-	var _UserData = await axios.get(env.process.BASE_URL + `api/users/${req.session.User.id}`);
+	var _UserData = await axios.get(env.process.BASE_URL + `api/users/${req.session.User.id}`);	
 	var _User = _UserData.data;
 	var newLevel = _User.level;
 	var oldLevel = (_User.stats["Level Up"].Status.value == 1) ? newLevel - 1 : newLevel;
