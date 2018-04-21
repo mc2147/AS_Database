@@ -153,18 +153,18 @@ async function CreateUser(username, levelGroup, blockNum, level, startDate, work
     var unHashed = "Password" + user.id;
     user.password = _index.User.generateHash(unHashed, user.salt);
     await user.save();
-    var inputs = {};
-    inputs["Day-1"] = workoutDays[0];
-    inputs["Day-2"] = workoutDays[1];
-    inputs["Day-3"] = workoutDays[2];
-    if (workoutDays.length == 4) {
-        inputs["Day-4"] = workoutDays[3];
-    }
-    inputs.startDate = startDate;
-    inputs.workoutLevel = user.level;
-    inputs.workoutBlock = user.blockNum;
-    (0, _apiFunctions.assignWorkouts)(user, inputs, true);
-    return;
+    // var inputs = {}; <- DO LATER
+    // inputs["Day-1"] = workoutDays[0];
+    // inputs["Day-2"] = workoutDays[1];
+    // inputs["Day-3"] = workoutDays[2];
+    // if (workoutDays.length == 4) {
+    //     inputs["Day-4"] = workoutDays[3];
+    // }
+    // inputs.startDate = startDate;
+    // inputs.workoutLevel = user.level;
+    // inputs.workoutBlock = user.blockNum;
+    // assignWorkouts (user, inputs, true);
+    // return    
 
     //  Instance variables
     var workoutDates = getWorkoutDays(startDate, workoutDays, 1, "", NWorkouts);

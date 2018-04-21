@@ -242,6 +242,7 @@ router.post('/get-next-workouts', async function (req, res, next) {
 	if (!req.session.userId) {
 		req.session.userId = 8;
 	}
+	// 
 	console.log("req.session", req.session);
 	var axiosPost = await axios.post('/api/users/' + req.session.userId + '/get-next-workouts', req.body, { proxy: { host: '127.0.0.1', port: 3000 } });
 	res.json(axiosPost.data);

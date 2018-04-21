@@ -407,8 +407,6 @@ router.put("/:userId/generate-workouts", async function (req, res) {
     return;
 });
 
-router.post("/:userId/old-stats/clear", async function (req, res) {});
-
 router.post("/:userId/get-next-workouts", async function (req, res) {
     var _User = await User.findById(req.params.userId);
     var input = req.body;
@@ -441,6 +439,8 @@ router.post("/:userId/get-next-workouts", async function (req, res) {
         } });
     return;
 });
+
+router.post("/:userId/old-stats/clear", async function (req, res) {});
 
 router.get("/:userId/videos", async function (req, res) {
     var videosUser = await User.findById(req.params.userId);
