@@ -54,8 +54,8 @@ var getURL = "getWorkout";
 
 let baseUrl = process.env.baseURL || "http://localhost:3000";
 
-console.log("process.env: ", process.env);
-console.log("BASE URL:::", process.env.baseURL);
+// console.log("process.env: ", process.env);
+// console.log("BASE URL:::", process.env.baseURL);
 
 var levelGroupsDict = {
 	// Add Week and Day list here too
@@ -267,7 +267,7 @@ router.post('/get-next-workouts',
 		// 
 		console.log("req.session", req.session);
 		var axiosPost = await axios.post(`/api/users/${req.session.userId}/get-next-workouts`, req.body,
-		{ proxy: { host: baseUrl || '127.0.0.1', port: 3000 } });
+		{ proxy: { host: '127.0.0.1', port: 3000 } });
 		res.json(axiosPost.data);
 		return		
 	}
@@ -289,11 +289,12 @@ router.get('/',
 		}).then(users => {
 			// console.log("ALL USERS: ", users);
 		})
-		
-		axios.get(baseUrl + `/api/user/logged-in`, 
-		{ proxy: { host: baseUrl || '127.0.0.1', port: 3000 } })
+		// axios.get(baseUrl + `/api/user/logged-in`, 
+		// { proxy: { host: baseUrl || '127.0.0.1', port: 3000 } })
+		axios.get("/api/user/logged-in")
 		.then(res => res.data)
 		.then(user => {
+				console.log("AXIOS.GET LINE 297");
 				if (!user) {
 					req.session.username = "UserName5";
 				}
@@ -304,6 +305,7 @@ router.get('/',
 		);
 		
 	}
+	console.log("LINE 308 (AXIOS WORKED)");
 	req.session.User = await User.findOne({where: {username: req.session.username}});
 	req.session.userId = req.session.User.id;
 	// console.log("390", req.session)c
@@ -331,7 +333,7 @@ router.get('/',
 		render();
 		return
 	}
-	
+	console.log("LINE 335");
 	
 	var TemplateID = req.session.viewingWID;
 	var wDateIndex = req.session.viewingWID - 1;
