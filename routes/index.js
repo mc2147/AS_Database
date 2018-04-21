@@ -285,10 +285,11 @@ router.get('/',
 		User.findAll({
 			where:{}
 		}).then(users => {
-			console.log("ALL USERS: ", users);
+			// console.log("ALL USERS: ", users);
 		})
 		
-		axios.get(baseUrl + `/api/user/logged-in`, { proxy: { host: '127.0.0.1', port: 3000 } })
+		axios.get(baseUrl + `/api/user/logged-in`, 
+		{ proxy: { host: baseUrl || '127.0.0.1', port: 3000 } })
 		.then(res => res.data)
 		.then(user => {
 				if (!user) {
