@@ -300,7 +300,7 @@ router.get('/',
 	// 	method:'get',
 	// 	url: herokuURL + "/api/users",
 	// })
-	var thisUserURL = herokuURL + "/api/users/" + req.session.userId;
+	var thisUserURL = herokuURL + "api/users/" + req.session.userId;
 	console.log("thisUserURL", thisUserURL);
 	axios.get(thisUserURL)
 	.then(res => res.data)
