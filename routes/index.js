@@ -308,6 +308,14 @@ router.get('/',
 			console.log("FINDING CURRENT USER: ", user);
 		} 
 	);
+	var loginTestURL = herokuURL + "api/users/" + req.session.username + "/login";
+	axios.post(loginTestURL, {
+		username: req.session.username,
+		password: "Password5",
+	}).then(res => res.data)
+	.then(status => {
+		console.log("LOGIN POST WORKS!!!", status);
+	})
 	
 
 	// axios.get("/api/users/" + req.session.userId)
