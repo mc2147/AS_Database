@@ -54,7 +54,8 @@ app.use(function (req, res, next) {
 app.use(cors({
     origin:['http://alloystrength.s3-website-us-east-1.amazonaws.com'],
     methods:['GET','POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    credentials: true // enable set cookie    
+    credentials: true, // enable set cookie    
+    allowedHeaders: ['Content-Type', 'Authorization', 'Content-Length', 'X-Requested-With']
 }));
 
 // app.use(function)
