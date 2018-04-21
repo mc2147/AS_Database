@@ -1,8 +1,8 @@
-var herokuURL = "https://obscure-citadel-34419.herokuapp.com/";
-var localURL = "http://localhost:3000/";
+var herokuURL = "https://obscure-citadel-34419.herokuapp.com";
+var localURL = "http://localhost:3000";
 
 process.env.BASE_URL = (process.env.PORT) ? herokuURL : localURL;
-console.log("process.env.BASE_URL SET: ", process.env.BASE_URL);
+console.log("process.env.   BASE_URL SET: ", process.env.BASE_URL);
 
 const path = require('path');
 var api = require('./api');

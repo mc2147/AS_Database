@@ -264,25 +264,3 @@ var Patterns = [];
 // if (!WorkouthasData) {};
 
 
-// var templateResponse = await axios.get(templateAPIURL
-//     ,{ proxy: { host: '127.0.0.1', port: 3000 }}
-// );
-// var thisTemplate  = templateResponse.data;
-
-// var subsAPIURL = templateAPIURL + '/subworkouts';
-// var subData = await axios.get(subsAPIURL
-//     ,{ proxy: { host: '127.0.0.1', port: 3000 }}
-// );
-// var thisSubs = subData.data;						
-// // console.log("thisSubs", thisSubs);	
-// thisSubs.forEach(elem => {
-//     var _Type = elem.exerciseType;
-//     if (_Type == "Med Ball") {_Type = "Medicine Ball";}
-//     else if (_Type == "Vert Pull") {_Type = "UB Vert Pull";} 	
-//     var eName = ExerciseDict[_Type][req.session.User.level].name;
-//     var userPattern = elem.patternFormat;
-    
-//     userPattern.name = eName;
-//     req.session.User.workouts[TemplateID].Patterns.push(userPattern);
-//     req.session.User.save();
-// });

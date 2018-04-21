@@ -63,8 +63,7 @@ router.post("/user/login", async function(req, res) {
     console.log("LOGIN POST");
     var username = req.body.username;
     var passwordInput = req.body.password;
-    var axiosPost = await axios.post(`/api/users/${username}/login`, req.body,
-    { proxy: { host: '127.0.0.1', port: 3000 } });
+    var axiosPost = await axios.post(process.env.BASE_URL + `/api/users/${username}/login`, req.body);
     
     res.json(axiosPost.data);
     // res.send("test");
@@ -74,8 +73,7 @@ router.post("/user/login", async function(req, res) {
 })
 
 router.post("/user/signup", async function(req, res) {
-        var axiosPost = await axios.post("/api/users/", req.body,
-        { proxy: { host: '127.0.0.1', port: 3000 } });
+        var axiosPost = await axios.post(process.env.BASE_URL + "/api/users/", req.body);
         res.json(axiosPost.data);
         return
         

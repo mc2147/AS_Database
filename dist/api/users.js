@@ -90,9 +90,9 @@ router.post("/", async function (req, res) {
 });
 
 router.post("/:username/login", async function (req, res) {
+    console.log("username/login route hit", req.body);
     var username = req.params.username;
     var passwordInput = req.body.password;
-    console.log("username/login route hit", req.body);
     var loginUser = await User.findOne({
         where: {
             username: username

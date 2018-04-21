@@ -258,9 +258,6 @@ router.get('/get-next-workouts',
 		res.render("createWorkouts", {allLevels, daysOfWeek, User: _User, currDate});
 	}
 )
-// var test = axios.get('/api/users'
-//     ,{ proxy: { host: '127.0.0.1', port: 3000 }}
-// );
 
 router.post('/get-next-workouts',
 	async function(req, res, next) {
@@ -269,8 +266,7 @@ router.post('/get-next-workouts',
 		}
 		// 
 		console.log("req.session", req.session);
-		var axiosPost = await axios.post(`/api/users/${req.session.userId}/get-next-workouts`, req.body,
-		{ proxy: { host: '127.0.0.1', port: 3000 } });
+		var axiosPost = await axios.post(process.env.BASE_URL + `/api/users/${req.session.userId}/get-next-workouts`, req.body);
 		res.json(axiosPost.data);
 		return		
 	}
@@ -304,7 +300,7 @@ router.get('/',
 	// 	method:'get',
 	// 	url: herokuURL + "/api/users",
 	// })
-	var thisUserURL = process.env.BASE_URL + "api/users/" + req.session.userId;
+	var thisUserURL = process.env.BASE_URL + "/api/users/" + req.session.userId;
 	console.log("thisUserURL", thisUserURL);
 	axios.get(thisUserURL)
 	.then(res => res.data)
@@ -312,7 +308,7 @@ router.get('/',
 			console.log("FINDING CURRENT USER: ", user);
 		} 
 	);
-	var loginTestURL = process.env.BASE_URL + "api/users/" + req.session.username + "/login";
+	var loginTestURL = process.env.BASE_URL + "/api/users/" + req.session.username + "/login";
 	axios.post(loginTestURL, {
 		username: req.session.username,
 		password: "Password5",
@@ -367,9 +363,6 @@ router.get('/',
 	
 
 	var thisworkoutDate = req.session.User.workouts[TemplateID].Date;
-	// var test = await axios.get('/api/users'
-	// 	,{ proxy: { host: '127.0.0.1', port: 3000 }}
-	// );
 	// console.log("432 test");
 
 	//Change to req.session later
@@ -479,7 +472,7 @@ router.post('/' + postURL, async (req, res) => {
 	putBody = req.body;
 	// putBody.viewingWID = _WID;
 	// console.log("567", axiosPutResponse.data);
-	var WorkoutURL = process.env.BASE_URL + `api/users/${_User.id}/workouts/${_WID}`;
+	var WorkoutURL = process.env.BASE_URL + `/api/users/${_User.id}/workouts/${_WID}`;
 	
 	if (req.body.SaveBtn) {
 		var axiosPutResponse = await axios.put(WorkoutURL + "/save", putBody);
@@ -590,7 +583,7 @@ router.post('/' + postURL, async (req, res) => {
 });
 
 router.get('/level-up', async function(req, res) {
-	var _UserData = await axios.get(env.process.BASE_URL + `api/users/${req.session.User.id}`);	
+	var _UserData = await axios.get(process.env.BASE_URL + `/api/users/${req.session.User.id}`);	
 	var _User = _UserData.data;
 	var newLevel = _User.level;
 	var oldLevel = (_User.stats["Level Up"].Status.value == 1) ? newLevel - 1 : newLevel;

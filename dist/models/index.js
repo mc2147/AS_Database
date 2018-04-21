@@ -15,7 +15,7 @@ var _require = require('../globals/enums'),
 // var ExerciseDict = data.ExerciseDict.Exercises;
 
 
-var db = new Sequelize('postgres://localhost:5432/AS_db', {
+var db = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost:5432/AS_db', {
     logging: false,
     dialectOptions: { decimalNumbers: true }
 });

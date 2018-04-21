@@ -158,8 +158,9 @@ export async function assignWorkouts(_User, input, newUser=false) {
                 } 
                 var Describer = describerPrefix + blockString + " - " + " Week " + W + ", Day " + D;
                 input.workouts[ID].Describer = Describer;
-                var subsURL = `/api/workout-templates/${_User.levelGroup}/block/${_User.blockNum}/week/${W}/day/${D}/subworkouts`;    
-                var subsResponse = await axios.get(subsURL ,{ proxy: { host: 'localhost', port: 3000 }});
+                // process.env.BASE_URL
+                var subsURL = process.env.BASE_URL + `/api/workout-templates/${_User.levelGroup}/block/${_User.blockNum}/week/${W}/day/${D}/subworkouts`;    
+                var subsResponse = await axios.get(subsURL);
                 var subsList = subsResponse.data;
                 console.log("subList for: ", W, D, subsList.length);
                 // input.workouts[ID].Patterns = subsList;
@@ -210,8 +211,8 @@ export async function assignWorkouts(_User, input, newUser=false) {
 
 export async function getblankPatterns(lGroup, block, W, D, level) {
     var blankPatterns = [];
-    var subsURL = `/api/workout-templates/${lGroup}/block/${block}/week/${W}/day/${D}/subworkouts`;    
-    var subsResponse = await axios.get(subsURL ,{ proxy: { host: 'localhost', port: 3000 }});
+    var subsURL = process.env.BASE_URL + `/api/workout-templates/${lGroup}/block/${block}/week/${W}/day/${D}/subworkouts`;    
+    var subsResponse = await axios.get(subsURL);
     var subsList = subsResponse.data;
     subsList.sort(function(a, b) {
         return a.number - b.number

@@ -1,4 +1,10 @@
-'use strict';
+"use strict";
+
+var herokuURL = "https://obscure-citadel-34419.herokuapp.com";
+var localURL = "http://localhost:3000";
+
+process.env.BASE_URL = process.env.PORT ? herokuURL : localURL;
+console.log("process.env.   BASE_URL SET: ", process.env.BASE_URL);
 
 var path = require('path');
 var api = require('./api');
@@ -29,16 +35,33 @@ app.use(session({
     activeDuration: 5 * 60 * 1000
 }));
 
+var allowCrossDomain = function allowCrossDomain(req, res, next) {
+    // if ('OPTIONS' == req.method) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+    // res.send(200);
+    next();
+    // }
+    // else {
+    // }
+};
+
+app.use(allowCrossDomain);
+
 app.use(function (req, res, next) {
     // console.log('session', req.session);
     next();
 });
 
 app.use(cors({
-    origin: ['http://localhost:8080'],
-    methods: ['GET', 'POST'],
-    credentials: true // enable set cookie    
+    origin: ['http://alloystrength.s3-website-us-east-1.amazonaws.com'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    credentials: true, // enable set cookie    
+    allowedHeaders: ['Content-Type', 'Authorization', 'Content-Length', 'X-Requested-With']
 }));
+
+// app.use(function)
 
 // var thisUser = await User.findById(1).then(user => {
 // 	console.log("USER FOUND!!! USER ID: " + user.id);
