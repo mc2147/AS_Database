@@ -15,6 +15,7 @@ var models = require('./models');
     var loadData = require('./data');
    
     process.env.BASE_URL = "https://obscure-citadel-34419.herokuapp.com/";
+    console.log("base url test: ", process.env.BASE_URL);
     // app.get('/', (req, res) => res.send('New Alloy Strength'))
     
     app.use(bodyParser.json()); // would be for AJAX requests
@@ -41,18 +42,20 @@ app.use(cors({
 }));
 
 var allowCrossDomain = function(req, res, next) {
-    if ('OPTIONS' == req.method) {
+    // if ('OPTIONS' == req.method) {
         res.header('Access-Control-Allow-Origin', '*');
         res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
         res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
         res.send(200);
-    }
-    else {
         next();
-    }
+    // }
+    // else {
+    // }
 };
 
 app.use(allowCrossDomain);
+
+// app.use(function)
     
     // var thisUser = await User.findById(1).then(user => {
         // 	console.log("USER FOUND!!! USER ID: " + user.id);
