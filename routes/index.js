@@ -52,7 +52,7 @@ var UserLevel = 1
 var postURL = "postWorkout";
 var getURL = "getWorkout";
 
-
+let baseUrl = process.env.baseURL || "http://localhost:3001";
 
 
 var levelGroupsDict = {
@@ -265,7 +265,7 @@ router.post('/get-next-workouts',
 		// 
 		console.log("req.session", req.session);
 		var axiosPost = await axios.post(`/api/users/${req.session.userId}/get-next-workouts`, req.body,
-		{ proxy: { host: '127.0.0.1', port: 3000 } });
+		{ proxy: { host: baseUrl || '127.0.0.1', port: 3000 } });
 		res.json(axiosPost.data);
 		return		
 	}
@@ -288,7 +288,7 @@ router.get('/',
 			console.log("ALL USERS: ", users);
 		})
 		
-		axios.get(`http://localhost:3000/api/user/logged-in`, { proxy: { host: '127.0.0.1', port: 3000 } })
+		axios.get(baseUrl + `/api/user/logged-in`, { proxy: { host: '127.0.0.1', port: 3000 } })
 		.then(res => res.data)
 		.then(user => {
 				if (!user) {
