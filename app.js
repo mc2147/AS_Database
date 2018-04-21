@@ -30,16 +30,6 @@ var models = require('./models');
     }));
     
     
-    app.use(function (req, res, next) {
-        // console.log('session', req.session);
-        next();
-    });
-    
-app.use(cors({
-    origin:['http://alloystrength.s3-website-us-east-1.amazonaws.com/'],
-    methods:['GET','POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    credentials: true // enable set cookie    
-}));
 
 var allowCrossDomain = function(req, res, next) {
     // if ('OPTIONS' == req.method) {
@@ -54,6 +44,18 @@ var allowCrossDomain = function(req, res, next) {
 };
 
 app.use(allowCrossDomain);
+
+app.use(function (req, res, next) {
+    // console.log('session', req.session);
+    next();
+});
+
+    
+app.use(cors({
+    origin:['http://alloystrength.s3-website-us-east-1.amazonaws.com/'],
+    methods:['GET','POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    credentials: true // enable set cookie    
+}));
 
 // app.use(function)
     
