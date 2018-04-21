@@ -52,8 +52,9 @@ var UserLevel = 1
 var postURL = "postWorkout";
 var getURL = "getWorkout";
 
-let baseUrl = process.env.baseURL || "http://localhost:3001";
+let baseUrl = process.env.baseURL || "http://localhost:3000";
 
+console.log("process.env: ", process.env);
 
 var levelGroupsDict = {
 	// Add Week and Day list here too
