@@ -296,10 +296,13 @@ router.get('/',
 	req.session.userId = req.session.User.id;
 	console.log("LINE 295 (BEFORE AXIOS)");
 
-	axios({
-		method:'get',
-		url: herokuURL + "/api/users",
-	})
+	// axios({
+	// 	method:'get',
+	// 	url: herokuURL + "/api/users",
+	// })
+	var thisUserURL = herokuURL + "/api/users/" + req.session.userId;
+	console.log("thisUserURL", thisUserURL);
+	axios.get(thisUserURL)
 	.then(res => res.data)
 	.then(user => {
 			console.log("FINDING CURRENT USER: ", user);
