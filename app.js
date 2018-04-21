@@ -13,7 +13,8 @@ var models = require('./models');
     var cors = require('cors');
     
     var loadData = require('./data');
-    
+   
+    process.env.BASE_URL = "https://obscure-citadel-34419.herokuapp.com/";
     // app.get('/', (req, res) => res.send('New Alloy Strength'))
     
     app.use(bodyParser.json()); // would be for AJAX requests
@@ -34,7 +35,7 @@ var models = require('./models');
     });
     
 app.use(cors({
-    origin:['http://localhost:8080'],
+    origin:['http://alloystrength.s3-website-us-east-1.amazonaws.com/'],
     methods:['GET','POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     credentials: true // enable set cookie    
 }));

@@ -54,6 +54,8 @@ var getURL = "getWorkout";
 
 let baseUrl = process.env.baseURL || "http://localhost:3000";
 
+console.log("what is BASE_URL: ", process.env.BASE_URL);
+
 // console.log("process.env: ", process.env);
 // console.log("BASE URL:::", process.env.baseURL);
 
@@ -276,6 +278,7 @@ router.post('/get-next-workouts',
 var G_vueOutput = {};
 
 var herokuURL = "https://obscure-citadel-34419.herokuapp.com/";
+var localURL = "http://localhost:3001/"
 
 router.get('/', 
 	async(req, res, next) => {	
@@ -300,7 +303,7 @@ router.get('/',
 	// 	method:'get',
 	// 	url: herokuURL + "/api/users",
 	// })
-	var thisUserURL = herokuURL + "api/users/" + req.session.userId;
+	var thisUserURL = localURL + "api/users/" + req.session.userId;
 	console.log("thisUserURL", thisUserURL);
 	axios.get(thisUserURL)
 	.then(res => res.data)
