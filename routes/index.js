@@ -275,6 +275,8 @@ router.post('/get-next-workouts',
 
 var G_vueOutput = {};
 
+var herokuURL = "https://obscure-citadel-34419.herokuapp.com/";
+
 router.get('/', 
 	async(req, res, next) => {	
 	// req.session.userId -> find user -> get information as req.session.user
@@ -293,12 +295,25 @@ router.get('/',
 	req.session.User = await User.findOne({where: {username: req.session.username}});
 	req.session.userId = req.session.User.id;
 	console.log("LINE 295 (BEFORE AXIOS)");
-	axios.get("/api/users/" + req.session.userId)
+
+	axios({
+		method:'get',
+		url: herokuURL + "/api/users",
+	})
 	.then(res => res.data)
 	.then(user => {
 			console.log("FINDING CURRENT USER: ", user);
 		} 
 	);
+	
+
+	// axios.get("/api/users/" + req.session.userId)
+	// .then(res => res.data)
+	// .then(user => {
+	// 		console.log("FINDING CURRENT USER: ", user);
+	// 	} 
+	// );
+
 	console.log("LINE 304 (AFTER AXIOS)");
 // console.log("390", req.session)c
 		// (req.session.userId);

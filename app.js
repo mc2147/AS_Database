@@ -33,11 +33,25 @@ var models = require('./models');
         next();
     });
     
-    app.use(cors({
-        origin:['http://localhost:8080'],
-        methods:['GET','POST'],
-        credentials: true // enable set cookie    
-    }));
+app.use(cors({
+    origin:['http://localhost:8080'],
+    methods:['GET','POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    credentials: true // enable set cookie    
+}));
+
+var allowCrossDomain = function(req, res, next) {
+    if ('OPTIONS' == req.method) {
+        res.header('Access-Control-Allow-Origin', '*');
+        res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
+        res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+        res.send(200);
+    }
+    else {
+        next();
+    }
+};
+
+app.use(allowCrossDomain);
     
     // var thisUser = await User.findById(1).then(user => {
         // 	console.log("USER FOUND!!! USER ID: " + user.id);
