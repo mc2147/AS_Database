@@ -1,7 +1,11 @@
 var herokuURL = "https://obscure-citadel-34419.herokuapp.com";
 var localURL = "http://localhost:3000";
 
+var herokuCORS = 'http://alloystrength.s3-website-us-east-1.amazonaws.com';
+var localCORS = "http://localhost:8080";
+
 process.env.BASE_URL = (process.env.PORT) ? herokuURL : localURL;
+process.env.CORS_ORIGIN = (process.env.PORT) ? herokuCORS : localCORS;
 console.log("process.env.   BASE_URL SET: ", process.env.BASE_URL);
 
 const path = require('path');
@@ -56,7 +60,7 @@ app.use(function (req, res, next) {
 
     
 app.use(cors({
-    origin:['http://alloystrength.s3-website-us-east-1.amazonaws.com'],
+    origin:[process.env.CORS_ORIGIN],
     methods:['GET','POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     credentials: true, // enable set cookie    
     allowedHeaders: ['Content-Type', 'Authorization', 'Content-Length', 'X-Requested-With']
